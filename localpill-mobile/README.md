@@ -1,14 +1,33 @@
-# Localpill Mobile Monorepo
+# 📱 LocalPill Mobile Apps
 
-This monorepo contains two React Native apps (customer-app, pharmacy-app) and a shared folder for common logic/components.
+This directory contains the mobile applications for LocalPill, built with **Expo** and **React Native**.
 
-## Structure
+## Apps
 
-- customer-app/ — React Native Expo app for customers
-- pharmacy-app/ — React Native Expo app for pharmacies
-- shared/ — Common logic, components, Firebase config
+| App | Directory | Description |
+|-----|-----------|-------------|
+| 🔍 **Customer App** | `customer-app/` | Patient-facing app for medicine search, request tracking, chat, and notifications |
+| 💊 **Pharmacy App** | `pharmacy-app/` | Pharmacy partner app for receiving requests, responding, and managing presence |
 
-## Next Steps
-1. Initialize Expo projects in customer-app and pharmacy-app folders
-2. Add shared logic/components as needed
-3. Implement screens/features as per web app parity
+## Quick Start
+
+```bash
+# Customer App
+cd customer-app && npm install && npx expo start
+
+# Pharmacy App
+cd pharmacy-app && npm install && npx expo start
+```
+
+## Shared Assets
+
+The `assets/` directory contains shared map marker images used by both apps.
+
+## Tech Stack
+
+- **Framework**: Expo SDK 52 / React Native
+- **Navigation**: Expo Router
+- **Backend**: Firebase (Auth, Firestore, RTDB, FCM, Storage)
+- **Analytics**: Firebase Analytics + Crashlytics
+- **Localization**: i18next (English + Hindi)
+- **Auth**: Phone OTP via Firebase
