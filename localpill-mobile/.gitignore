@@ -1,0 +1,25 @@
+# OS files
+.DS_Store
+
+# APK builds
+*.apk
+
+# Node modules (handled per app)
+node_modules/
+
+# Build artifacts
+dist/
+
+# Debug logs
+*.log
+firebase-debug.log
+
+# Env files
+.env
+.env.local
+
+# Screenshots (dev only)
+screen.png
+build_log.txt
+lint-output.txt
+lint-results.json

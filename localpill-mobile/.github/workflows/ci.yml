@@ -1,0 +1,106 @@
+name: LocalPill CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  typecheck_and_test:
+    name: Typecheck & Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 🛠️ Install Dependencies (Customer App)
+        working-directory: ./customer-app
+        run: npm ci
+
+      - name: 🛠️ Install Dependencies (Pharmacy App)
+        working-directory: ./pharmacy-app
+        run: npm ci
+
+      - name: 🔍 TypeScript Check (Customer App)
+        working-directory: ./customer-app
+        run: npx tsc --noEmit
+
+      - name: 🔍 TypeScript Check (Pharmacy App)
+        working-directory: ./pharmacy-app
+        run: npx tsc --noEmit
+
+  maestro_tests:
+    name: Maestro E2E Tests
+    needs: typecheck_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v4
+
+      # Note: To run Maestro in GitHub Actions, you generally need Maestro Cloud
+      # or to spin up an Android emulator / iOS simulator in the CI. 
+      # Below is the setup for Maestro Cloud. It requires MAESTRO_API_KEY in GitHub Secrets.
+      # You also need to upload the compiled App/APK or pass an App ID.
+      - name: 🚀 Install Maestro
+        run: curl -Ls "https://get.maestro.mobile.dev" | bash
+
+      - name: 🧪 Run Maestro Tests (Customer App)
+        run: |
+          export PATH="$PATH":"$HOME/.maestro/bin"
+          echo "Running Maestro E2E Flows for Customer App"
+          # Example command for Maestro Cloud:
+          # maestro cloud --apiKey ${{ secrets.MAESTRO_API_KEY }} <path-to-apk/zip> customer-app/.maestro/
+          # For local testing check:
+          maestro --version || true
+          echo "Placeholder for Maestro UI tests. Uncomment cloud execution once APK build is ready."
+
+      - name: 🧪 Run Maestro Tests (Pharmacy App)
+        run: |
+          export PATH="$PATH":"$HOME/.maestro/bin"
+          echo "Running Maestro E2E Flows for Pharmacy App"
+          echo "Placeholder for Maestro UI tests. Uncomment cloud execution once APK build is ready."
+
+  eas_deploy:
+    name: EAS Update / OTA Deployment
+    needs: maestro_tests
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: 🛎️ Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🛠️ Setup Expo & EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install Dependencies (Customer App)
+        working-directory: ./customer-app
+        run: npm ci
+
+      - name: 🚀 EAS Update - Customer App
+        working-directory: ./customer-app
+        run: eas update --branch preview --message "Automated update from CI" --non-interactive
+
+      - name: 📦 Install Dependencies (Pharmacy App)
+        working-directory: ./pharmacy-app
+        run: npm ci
+
+      - name: 🚀 EAS Update - Pharmacy App
+        working-directory: ./pharmacy-app
+        run: eas update --branch preview --message "Automated update from CI" --non-interactive

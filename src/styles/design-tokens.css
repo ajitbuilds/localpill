@@ -1,0 +1,128 @@
+/* src/styles/design-tokens.css */
+/* Core Theme Variables (Issue #19 & #40) */
+
+:root {
+    /* ================= LIGHT MODE (DEFAULT) ================= */
+
+    /* Backgrounds */
+    --color-bg-main: #f8fafc;
+    /* App background */
+    --color-bg-surface: #ffffff;
+    /* Cards, modals, sheets */
+    --color-bg-elevated: #f1f5f9;
+    /* Hover states, secondary panels */
+
+    /* Text */
+    --color-text-primary: #0f172a;
+    /* Headings, main body */
+    --color-text-secondary: #475569;
+    /* Subtitles, timestamps */
+    --color-text-tertiary: #94a3b8;
+    /* Placeholders, disabled text */
+    --color-text-inverse: #ffffff;
+    /* Text on solid primary colors */
+
+    /* Brand Primary (Green) */
+    --color-primary-light: #34d399;
+    /* Highlights */
+    --color-primary-main: #10b981;
+    /* Primary buttons, branding */
+    --color-primary-dark: #059669;
+    /* Hover states for primary */
+    --color-primary-subtle: rgba(16, 185, 129, 0.1);
+    /* Light green backgrounds */
+    --color-primary-border: #a7f3d0;
+    /* Border for primary hover states */
+
+    /* Borders & Dividers */
+    --color-border: #e2e8f0;
+    --color-border-subtle: #f1f5f9;
+
+    /* Status Colors */
+    --color-error: #ef4444;
+    --color-error-bg: #fef2f2;
+    --color-warning: #f59e0b;
+    --color-warning-bg: #fffbeb;
+    --color-info: #3b82f6;
+    --color-info-bg: #eff6ff;
+    
+    /* Success Colors (for medicine badges) */
+    --color-success: #10b981;
+    --color-success-subtle: #d1fae5;
+    --color-success-dark: #065f46;
+    --color-success-border: #a7f3d0;
+    --color-bg-subtle: #f1f5f9;
+
+    /* Standard Utility Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+}
+
+/* ================= DARK MODE OVERRIDES ================= */
+.dark {
+    /* Backgrounds */
+    --color-bg-main: #0f172a;
+    /* Deep slate background */
+    --color-bg-surface: #1e293b;
+    /* Slightly lighter cards */
+    --color-bg-elevated: #334155;
+    /* Hover states, active tabs */
+
+    /* Text */
+    --color-text-primary: #f8fafc;
+    /* White/light gray */
+    --color-text-secondary: #94a3b8;
+    /* Muted slate */
+    --color-text-tertiary: #64748b;
+    /* Dim slate */
+    --color-text-inverse: #ffffff;
+    /* Stays white */
+
+    /* Brand Primary (Slightly brighter in dark mode for contrast) */
+    --color-primary-light: #6ee7b7;
+    --color-primary-main: #10b981;
+    /* Keep core identity */
+    --color-primary-dark: #047857;
+    --color-primary-subtle: rgba(16, 185, 129, 0.15);
+    --color-primary-border: rgba(16, 185, 129, 0.4);
+
+    /* Borders & Dividers */
+    --color-border: #334155;
+    --color-border-subtle: #1e293b;
+
+    /* Status Colors */
+    --color-error: #f87171;
+    --color-error-bg: rgba(239, 68, 68, 0.1);
+    --color-warning: #fbbf24;
+    --color-warning-bg: rgba(245, 158, 11, 0.1);
+    --color-info: #60a5fa;
+    --color-info-bg: rgba(59, 130, 246, 0.1);
+    
+    /* Success Colors (for medicine badges - dark mode) */
+    --color-success: #34d399;
+    --color-success-subtle: rgba(16, 185, 129, 0.2);
+    --color-success-dark: #6ee7b7;
+    --color-success-border: rgba(16, 185, 129, 0.4);
+    --color-bg-subtle: #334155;
+
+    /* Shadows (Darker for contrast) */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* Global Transition for smooth theme switching */
+body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}

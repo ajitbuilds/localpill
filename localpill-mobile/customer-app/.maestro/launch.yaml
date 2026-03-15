@@ -1,0 +1,4 @@
+appId: com.localpill.customerapp
+---
+- launchApp
+- assertVisible: "Local" # Wait for something on the screen that has text matching "Local" or similar, or just relax the assert. Actually, let's just make it launchApp for a basic skeleton.

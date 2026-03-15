@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "localpill-upcharmitra"
+  },
+  "targets": {
+    "localpill-upcharmitra": {
+      "hosting": {}
+    }
+  },
+  "etags": {}
+}

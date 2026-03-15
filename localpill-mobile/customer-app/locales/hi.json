@@ -1,0 +1,18 @@
+{
+  "welcome": "LocalPill में आपका स्वागत है",
+  "find_pharmacy": "आसपास की फार्मेसी खोजें",
+  "search_placeholder": "दवा या फार्मेसी खोजें...",
+  "request_medicine": "दवा का अनुरोध करें",
+  "home": "होम",
+  "chat": "चैट",
+  "profile": "प्रोफ़ाइल",
+  "settings": "सेटिंग्स",
+  "logout": "लॉग आउट",
+  "language": "भाषा",
+  "orders": "मेरे ऑर्डर",
+  "type_message": "एक संदेश टाइप करें...",
+  "send": "भेजें",
+  "upload_prescription": "पर्चे अपलोड करें",
+  "call_pharmacy": "फार्मेसी को कॉल करें",
+  "directions": "दिशा निर्देश प्राप्त करें"
+}

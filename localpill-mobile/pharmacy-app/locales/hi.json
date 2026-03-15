@@ -1,0 +1,16 @@
+{
+  "pharmacist_dashboard": "फार्मासिस्ट डैशबोर्ड",
+  "incoming_requests": "आने वाले अनुरोध",
+  "my_chats": "मेरी चैट",
+  "orders": "ऑर्डर",
+  "profile": "प्रोफ़ाइल",
+  "settings": "सेटिंग्स",
+  "logout": "लॉग आउट",
+  "language": "भाषा",
+  "type_message": "एक संदेश टाइप करें...",
+  "send": "भेजें",
+  "request_done": "पूर्ण चिह्नित करें",
+  "patient_name": "मरीज़ का नाम",
+  "accept": "स्वीकार करें",
+  "decline": "अस्वीकार करें"
+}

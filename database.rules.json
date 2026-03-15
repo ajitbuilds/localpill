@@ -1,0 +1,54 @@
+{
+    "rules": {
+        "status": {
+            "$uid": {
+                ".read": "auth != null",
+                ".write": "auth != null && auth.uid === $uid"
+            }
+        },
+        "pharmacyPresence": {
+            "$uid": {
+                ".read": "auth != null",
+                ".write": "auth != null && auth.uid === $uid"
+            }
+        },
+        "admins": {
+            "$uid": {
+                ".read": "auth != null && auth.uid === $uid",
+                ".write": false
+            }
+        },
+        "chatMembers": {
+            "$chatId": {
+                "$uid": {
+                    ".read": "auth != null",
+                    ".write": "auth != null && auth.uid === $uid"
+                }
+            }
+        },
+        "chats": {
+            "$chatId": {
+                ".read": "auth != null && (root.child('chatMembers').child($chatId).child(auth.uid).val() === true || root.child('admins').child(auth.uid).val() === true)",
+                ".write": "auth != null && (root.child('chatMembers').child($chatId).child(auth.uid).val() === true || root.child('admins').child(auth.uid).val() === true)",
+                "typing": {
+                    "$uid": {
+                        ".read": "auth != null && root.child('chatMembers').child($chatId).child(auth.uid).val() === true",
+                        ".write": "auth != null && auth.uid === $uid && root.child('chatMembers').child($chatId).child(auth.uid).val() === true"
+                    }
+                },
+                "lastRead": {
+                    "$uid": {
+                        ".read": "auth != null && root.child('chatMembers').child($chatId).child(auth.uid).val() === true",
+                        ".write": "auth != null && auth.uid === $uid && root.child('chatMembers').child($chatId).child(auth.uid).val() === true"
+                    }
+                },
+                "reactions": {
+                    "$msgId": {
+                        ".read": "auth != null && root.child('chatMembers').child($chatId).child(auth.uid).val() === true",
+                        ".write": "auth != null && root.child('chatMembers').child($chatId).child(auth.uid).val() === true"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /medicine/
+Allow: /pharmacy/
+Disallow: /dashboard
+Disallow: /debug
+Disallow: /matching-debug
+
+Sitemap: https://localpill.com/sitemap.xml

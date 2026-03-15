@@ -1,0 +1,99 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Fix #54: Restructured chat_images path to include chatId.
+    // Only the patient or pharmacy participant can read images from their chat.
+    match /chat_images/{chatId}/{fileName} {
+      allow read: if request.auth != null &&
+                  (request.auth.uid == resource.metadata.patientId ||
+                   request.auth.uid == resource.metadata.pharmacyId);
+      allow write: if request.auth != null
+                   && request.resource.size < 6 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // Explicitly lock down the prescriptions payload
+    match /prescriptions/{requestId}/{fileName} {
+      
+      // Helper: check if requester is a pharmacy via their user role (more reliable than checking pharmacies collection)
+      function isPharmacyUser() {
+        return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == 'pharmacy';
+      }
+      
+      // Helper: check if pharmacy was actually notified about this request
+      function isTargetedPharmacy() {
+        return request.auth.uid in firestore.get(/databases/(default)/documents/medicineRequests/$(requestId)).data.targetPharmacyIds;
+      }
+      
+      // Allow read to: the patient who owns the request OR any targeted pharmacy
+      allow read: if request.auth != null && (
+        // The patient who made the request
+        request.auth.uid == firestore.get(/databases/(default)/documents/medicineRequests/$(requestId)).data.userId
+        ||
+        // Any pharmacy with role='pharmacy' that was in targetPharmacyIds
+        (isPharmacyUser() && isTargetedPharmacy())
+      );
+      
+      // Strict upload rules: We cannot use `firestore.get()` during upload
+      // because the app uploads the image FIRST, then creates the document.
+      // We rely on auth being present, size limits, and allowed extensions.
+      allow write: if request.auth != null
+                   // Enforce Max Size: 10MB
+                   && request.resource.size < 10 * 1024 * 1024 
+                   // Enforce Specific MIME Types
+                   && request.resource.contentType.matches('image/.*|application/pdf');
+    }
+
+    // Mobile app: prescriptions uploaded by userId (not requestId)
+    // SEC FIX: Only the owner can read their own prescriptions (was open to any auth user)
+    match /prescriptions/{userId}/{fileName} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth != null
+                   && request.auth.uid == userId
+                   && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // Customer profile pictures uploaded by mobile app
+    match /profile_pics/{userId}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.uid == userId
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // Chat attachments from mobile app
+    match /chat_attachments/{chatId}/{fileName} {
+      allow read: if request.auth != null && 
+                  (request.auth.uid == chatId.split('_')[1] || 
+                   request.auth.uid == firestore.get(/databases/(default)/documents/medicineRequests/$(chatId.split('_')[0])).data.userId);
+      allow write: if request.auth != null && 
+                   (request.auth.uid == chatId.split('_')[1] || 
+                    request.auth.uid == firestore.get(/databases/(default)/documents/medicineRequests/$(chatId.split('_')[0])).data.userId)
+                   && request.resource.size < 10 * 1024 * 1024;
+    }
+
+    // Specific rule for pharmacy profile pics (no size limit enforced by Firebase, compressed by client)
+    match /pharmacies/{pharmacyId}/profile/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null 
+                   && request.auth.uid == pharmacyId
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // Default rule for all other pharmacy assets (enforce 10MB limit)
+    match /pharmacies/{pharmacyId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null 
+                   && request.auth.uid == pharmacyId
+                   && request.resource.size < 10 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*|application/pdf');
+    }
+    
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

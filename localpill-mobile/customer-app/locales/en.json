@@ -1,0 +1,18 @@
+{
+  "welcome": "Welcome to LocalPill",
+  "find_pharmacy": "Find nearby pharmacies",
+  "search_placeholder": "Search medicine or pharmacy...",
+  "request_medicine": "Request Medicine",
+  "home": "Home",
+  "chat": "Chat",
+  "profile": "Profile",
+  "settings": "Settings",
+  "logout": "Logout",
+  "language": "Language",
+  "orders": "My Orders",
+  "type_message": "Type a message...",
+  "send": "Send",
+  "upload_prescription": "Upload Prescription",
+  "call_pharmacy": "Call Pharmacy",
+  "directions": "Get Directions"
+}

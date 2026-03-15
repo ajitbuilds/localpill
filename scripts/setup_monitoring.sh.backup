@@ -1,0 +1,49 @@
+#!/bin/bash
+# LocalPill GCP Monitoring & Logging Infrastructure Setup Script
+# Run this script securely from your terminal where `gcloud` is authenticated.
+# Requires: gcloud login, active billing on 'localpill-upcharmitra'
+
+PROJECT_ID="localpill-upcharmitra"
+
+echo "1. Creating BigQuery Dataset for Logs Export..."
+bq mk --dataset ${PROJECT_ID}:backend_logs
+
+echo "2. Creating Log Router Sink to BigQuery..."
+gcloud logging sinks create localpill_functions_logs \
+  bigquery.googleapis.com/projects/${PROJECT_ID}/datasets/backend_logs \
+  --log-filter='resource.type="cloud_function" OR resource.type="cloud_run_revision"' \
+  --use-partitioned-tables \
+  --project=${PROJECT_ID}
+
+echo "3. Granting BigQuery access to the generated Log Sink Service Account..."
+SINK_SA=$(gcloud logging sinks describe localpill_functions_logs --format='value(writerIdentity)' --project=${PROJECT_ID})
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+  --member=$SINK_SA \
+  --role=roles/bigquery.dataEditor
+
+echo "4. Creating Cloud Monitoring Alert: Function Failure Spikes..."
+gcloud alpha monitoring policies create \
+  --display-name="High Function Failure Rate" \
+  --condition='displayName="Function execution with status error",conditionThreshold={filter="metric.type=\"cloudfunctions.googleapis.com/function/execution_count\" AND resource.type=\"cloud_function\" AND metric.labels.status=\"error\"",comparison="COMPARISON_GT",thresholdValue=5,duration="300s",trigger={count=1}}' \
+  --project=${PROJECT_ID}
+
+echo "5. Creating Cloud Monitoring Alert: Latency > 5 seconds..."
+gcloud alpha monitoring policies create \
+  --display-name="High Function Latency (>5s)" \
+  --condition='displayName="Function execution time > 5s",conditionThreshold={filter="metric.type=\"cloudfunctions.googleapis.com/function/execution_times\" AND resource.type=\"cloud_function\"",comparison="COMPARISON_GT",thresholdValue=5000000000,duration="300s",trigger={count=1}}' \
+  --project=${PROJECT_ID}
+
+echo "6. Creating logs-based metric for FCM Send Failure Rate..."
+# This extracts the structured logs we implemented into a measurable metric to trigger alerts on
+gcloud logging metrics create fcm_failure_rate \
+  --description="Measure FCM Send Failure Rate from processMedicineRequest" \
+  --log-filter='resource.type="cloud_function" AND jsonPayload.fcmFailureRate > 0.1' \
+  --project=${PROJECT_ID}
+
+echo "7. Creating Cloud Monitoring Alert: FCM Send Failure Rate > 10%..."
+gcloud alpha monitoring policies create \
+  --display-name="FCM Send Failure Rate Exceeds 10%" \
+  --condition='displayName="FCM Send Failures",conditionThreshold={filter="metric.type=\"logging.googleapis.com/user/fcm_failure_rate\" AND resource.type=\"cloud_function\"",comparison="COMPARISON_GT",thresholdValue=0,duration="300s",trigger={count=1}}' \
+  --project=${PROJECT_ID}
+
+echo "✓ Infrastructure Monitoring successfully provisioned!"

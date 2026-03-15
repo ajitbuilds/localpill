@@ -1,0 +1,113 @@
+{
+  "project_info": {
+    "project_number": "481146336183",
+    "firebase_url": "https://localpill-upcharmitra-default-rtdb.firebaseio.com",
+    "project_id": "localpill-upcharmitra",
+    "storage_bucket": "localpill-upcharmitra.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481146336183:android:fcf60cc05121006269ee32",
+        "android_client_info": {
+          "package_name": "com.localpill.customerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481146336183-bji6nhhdg91d6066abpgu1edk5lddb0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.localpill.customerapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "481146336183-n8evu8sslkbnjlvvt9fank7pp4u4gtvn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.localpill.customerapp",
+            "certificate_hash": "a9e8e2febbefc8928b1ab5ed87adf5e6b449c60c"
+          }
+        },
+        {
+          "client_id": "481146336183-pvl2u6vbcvspsloqaogk08gc6gr5ed1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiLT7VoR8wnG5-EYTgk5OT9YqIVAV9-Wk"
+        },
+        {
+          "current_key": "AIzaSyDUL2WdeptEzh1JMG2b0m5fB3p9Chr0nnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481146336183-pvl2u6vbcvspsloqaogk08gc6gr5ed1h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "481146336183-3lst8l19apmrhr19usb5surtep2ncf5v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.localpill.customerapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481146336183:android:a41c8b53d263508569ee32",
+        "android_client_info": {
+          "package_name": "com.localpill.pharmacyapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481146336183-tt6ga5j0kqkbdee8or58mfe07e9d0dd3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.localpill.pharmacyapp",
+            "certificate_hash": "a9e8e2febbefc8928b1ab5ed87adf5e6b449c60c"
+          }
+        },
+        {
+          "client_id": "481146336183-pvl2u6vbcvspsloqaogk08gc6gr5ed1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiLT7VoR8wnG5-EYTgk5OT9YqIVAV9-Wk"
+        },
+        {
+          "current_key": "AIzaSyDUL2WdeptEzh1JMG2b0m5fB3p9Chr0nnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "481146336183-pvl2u6vbcvspsloqaogk08gc6gr5ed1h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "481146336183-3lst8l19apmrhr19usb5surtep2ncf5v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.localpill.customerapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

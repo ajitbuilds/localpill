@@ -1,0 +1,16 @@
+{
+  "pharmacist_dashboard": "Pharmacist Dashboard",
+  "incoming_requests": "Incoming Requests",
+  "my_chats": "My Chats",
+  "orders": "Orders",
+  "profile": "Profile",
+  "settings": "Settings",
+  "logout": "Logout",
+  "language": "Language",
+  "type_message": "Type a message...",
+  "send": "Send",
+  "request_done": "Mark Done",
+  "patient_name": "Patient Name",
+  "accept": "Accept",
+  "decline": "Decline"
+}

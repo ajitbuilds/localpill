@@ -1,0 +1,150 @@
+/* ───────────────────────────────────────────────────────────────────
+   src/styles/tokens.css  —  Canonical CSS design tokens (Issue #19)
+   These are the spec-required variable names.
+   design-tokens.css keeps the --color-*-main/-secondary hierarchy;
+   this file adds the short canonical aliases used by new UI components.
+─────────────────────────────────────────────────────────────────── */
+:root {
+    /* ── Brand ───────────────────────────────────────────────────── */
+    --color-primary: #10B981;
+    --color-success: #22C55E;
+    --color-danger: #EF4444;
+    --color-warning: #F59E0B;
+
+    /* ── Backgrounds ─────────────────────────────────────────────── */
+    --color-bg: #FFFFFF;
+    --color-surface: #F8FAFC;
+    --color-elevated: #F1F5F9;
+
+    /* Dashboard-specific background aliases */
+    --color-bg-main: #FFFFFF;
+    --color-bg-surface: #F8FAFC;
+    --color-bg-subtle: #F1F5F9;
+    --color-bg-card-gradient: linear-gradient(135deg, #1a2e1a 0%, #0f1f0f 100%);
+
+    /* ── Text ────────────────────────────────────────────────────── */
+    --color-text: #1E293B;
+    --color-text-primary: #111827;
+    --color-text-secondary: #64748B;
+    --color-text-tertiary: #9CA3AF;
+    --color-text-muted: #94A3B8;
+
+    /* ── Border / Outline ────────────────────────────────────────── */
+    --color-border: #E2E8F0;
+
+    /* ── Primary colour family (green) ───────────────────────────── */
+    --color-primary-main: #2ECC71;
+    --color-primary-subtle: #F0FDF4;
+    --color-primary-border: #86EFAC;
+
+    /* ── Success colour family ───────────────────────────────────── */
+    --color-success-subtle: #F0FDF4;
+    --color-success-border: #BBF7D0;
+    --color-success-dark: #15803D;
+
+    /* ── Error / Danger colour family ───────────────────────────── */
+    --color-error: #DC2626;
+    --color-error-subtle: #FEF2F2;
+    --color-error-subtle-hover: #FEE2E2;
+    --color-error-border: #FECACA;
+
+    /* ── Info ────────────────────────────────────────────────────── */
+    --color-info: #3B82F6;
+
+    /* ── Spacing ─────────────────────────────────────────────────── */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* ── Typography ─────────────────────────────────────────────── */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.5rem;
+
+    /* ── Border Radius ───────────────────────────────────────────── */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+
+    /* ── Shadows ─────────────────────────────────────────────────── */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.10), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* ── Transitions ─────────────────────────────────────────────── */
+    --transition-fast: 150ms ease;
+    --transition: 250ms ease;
+    --transition-slow: 400ms ease;
+}
+
+/* ── Dark mode overrides ────────────────────────────────────────── */
+.dark {
+    --color-bg: #0F172A;
+    --color-surface: #1E293B;
+    --color-elevated: #334155;
+    --color-text: #F1F5F9;
+    --color-text-primary: #F9FAFB;
+    --color-text-secondary: #94A3B8;
+    --color-text-tertiary: #6B7280;
+    --color-text-muted: #64748B;
+    --color-border: #334155;
+
+    --color-bg-main: #0F172A;
+    --color-bg-surface: #1E293B;
+    --color-bg-subtle: #334155;
+    --color-bg-card-gradient: linear-gradient(135deg, #0d2318 0%, #091a0f 100%);
+
+    --color-primary-main: #34D399;
+    --color-primary-subtle: #022c22;
+    --color-primary-border: #064e3b;
+
+    --color-success: #4ADE80;
+    --color-success-subtle: #052e16;
+    --color-success-border: #14532d;
+    --color-success-dark: #4ADE80;
+
+    --color-error: #F87171;
+    --color-error-subtle: #1f1315;
+    --color-error-subtle-hover: #2d1414;
+    --color-error-border: #7f1d1d;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.40), 0 2px 4px -1px rgba(0, 0, 0, 0.20);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.50), 0 4px 6px -2px rgba(0, 0, 0, 0.30);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+        --color-bg: #0F172A;
+        --color-surface: #1E293B;
+        --color-elevated: #334155;
+        --color-text: #F1F5F9;
+        --color-text-primary: #F9FAFB;
+        --color-text-secondary: #94A3B8;
+        --color-text-tertiary: #6B7280;
+        --color-text-muted: #64748B;
+        --color-border: #334155;
+        --color-bg-main: #0F172A;
+        --color-bg-surface: #1E293B;
+        --color-bg-subtle: #334155;
+        --color-bg-card-gradient: linear-gradient(135deg, #0d2318 0%, #091a0f 100%);
+        --color-primary-main: #34D399;
+        --color-primary-subtle: #022c22;
+        --color-primary-border: #064e3b;
+        --color-success: #4ADE80;
+        --color-success-subtle: #052e16;
+        --color-success-border: #14532d;
+        --color-success-dark: #4ADE80;
+        --color-error: #F87171;
+        --color-error-subtle: #1f1315;
+        --color-error-subtle-hover: #2d1414;
+        --color-error-border: #7f1d1d;
+    }
+}
